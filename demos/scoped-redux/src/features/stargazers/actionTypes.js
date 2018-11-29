@@ -1,0 +1,5 @@
+export const LOAD = 'features/stargazers/LOAD'
+export const LOAD_NEXT = 'features/stargazers/LOAD_NEXT'
+export const HANDLE_RESPONSE = 'features/stargazers/HANDLE_RESPONSE'
+export const HANDLE_NEXT_RESPONSE = 'features/stargazers/HANDLE_NEXT_RESPONSE'
+export const HANDLE_ERROR = 'features/stargazers/HANDLE_ERROR'
