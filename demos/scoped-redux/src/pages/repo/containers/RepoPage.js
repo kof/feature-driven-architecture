@@ -3,20 +3,26 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Repo } from '../../../features/repo'
 import { Stargazers } from '../../../features/stargazers'
+import { handle as handleError } from '../../../features/error'
 
 const propTypes = {
   fullName: PropTypes.string.isRequired,
 }
 
-const RepoPage = ({ fullName }) => (
+const RepoPage = ({ fullName, onError }) => (
   <Fragment>
-    <Repo fullName={fullName} />
-    <Stargazers fullName={fullName} />
+    <Repo fullName={fullName} onError={onError} />
+    <Stargazers fullName={fullName} onError={onError} />
   </Fragment>
 )
 
 RepoPage.propTypes = propTypes
 
-export default connect((state, props) => ({
-  fullName: `${props.match.params.login}/${props.match.params.repo}`,
-}))(RepoPage)
+export default connect(
+  (state, props) => ({
+    fullName: `${props.match.params.login}/${props.match.params.repo}`,
+  }),
+  {
+    onError: handleError,
+  }
+)(RepoPage)

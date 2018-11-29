@@ -30,10 +30,10 @@ class StargazersContainer extends Component {
   }
 
   load(prevfullName) {
-    const { fullName, onLoad, status } = this.props
+    const { fullName, onLoad, onError, status } = this.props
 
     if (fullName && fullName !== prevfullName && status !== 'loading') {
-      onLoad({ fullName })
+      onLoad({ fullName }).catch(onError)
     }
   }
 

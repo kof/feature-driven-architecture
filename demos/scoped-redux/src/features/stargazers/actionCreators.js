@@ -1,5 +1,4 @@
 import * as api from '../../shared/api'
-import { handle as showError } from '../../features/error'
 import {
   LOAD,
   LOAD_NEXT,
@@ -10,12 +9,12 @@ import {
 
 const handleError = dispatch => error => {
   dispatch({ type: HANDLE_ERROR, payload: error })
-  dispatch(showError(error))
+  throw error
 }
 
 export const load = ({ fullName }) => dispatch => {
   dispatch({ type: LOAD, payload: fullName })
-  api
+  return api
     .call(`repos/${fullName}/stargazers`)
     .then(payload => {
       dispatch({ type: HANDLE_RESPONSE, payload })
@@ -25,7 +24,7 @@ export const load = ({ fullName }) => dispatch => {
 
 export const loadNext = ({ url }) => dispatch => {
   dispatch({ type: LOAD_NEXT })
-  api
+  return api
     .call(url)
     .then(payload => {
       dispatch({ type: HANDLE_NEXT_RESPONSE, payload })

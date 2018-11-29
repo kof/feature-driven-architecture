@@ -29,12 +29,17 @@ class StarredReposContainer extends Component {
     this.load(prevProps.login)
   }
 
-  load(prevLogin) {
-    const { login, onLoad, status } = this.props
+  load = prevLogin => {
+    const { login, onLoad, onError, status } = this.props
 
     if (login && login !== prevLogin && status !== 'loading') {
-      onLoad({ login })
+      onLoad({ login }).catch(onError)
     }
+  }
+
+  loadNext = options => {
+    const { onLoadNext, onError } = this.props
+    onLoadNext(options).catch(onError)
   }
 
   render() {
@@ -53,7 +58,7 @@ class StarredReposContainer extends Component {
         <List
           renderItem={props => <Repo {...props} key={props.repo.fullName} />}
           items={starred}
-          onLoadNext={onLoadNext}
+          onLoadNext={this.loadNext}
           loadingLabel={`Loading ${login}'s starred...`}
           nextPageUrl={nextPageUrl}
           lastPageUrl={lastPageUrl}

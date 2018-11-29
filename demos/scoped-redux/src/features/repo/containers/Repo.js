@@ -28,9 +28,9 @@ class RepoContainer extends Component {
   }
 
   load(prevFullName) {
-    const { fullName, onLoad, status } = this.props
+    const { fullName, onLoad, onError, status } = this.props
     if (fullName && fullName !== prevFullName && status !== 'loading') {
-      onLoad({ fullName })
+      onLoad({ fullName }).catch(onError)
     }
   }
 

@@ -28,9 +28,9 @@ class ProfileContainer extends Component {
   }
 
   load(prevLogin) {
-    const { login, onLoad, status } = this.props
+    const { login, onLoad, onError, status } = this.props
     if (login && login !== prevLogin && status !== 'loading') {
-      onLoad({ login })
+      onLoad({ login }).catch(onError)
     }
   }
 
